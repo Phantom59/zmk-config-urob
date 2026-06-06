@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corne Choc Pro BT — Keymap Reference</title>
+<style>
+  :root {
+    --bg: #f8f9fa;
+    --bg2: #ffffff;
+    --bg3: #e9ecef;
+    --text: #212529;
+    --text2: #495057;
+    --accent: #4263eb;
+    --accent2: #364fc7;
+    --key-bg: #dee2e6;
+    --key-border: #adb5bd;
+    --key-text: #212529;
+    --table-head: #e9ecef;
+    --border: #dee2e6;
+    --tag-nav: #d0ebff;
+    --tag-nav-text: #1971c2;
+    --tag-fn: #e5dbff;
+    --tag-fn-text: #6741d9;
+    --tag-num: #fff3bf;
+    --tag-num-text: #e67700;
+    --tag-sys: #ffd8a8;
+    --tag-sys-text: #c92a2a;
+    --tag-mouse: #c3fae8;
+    --tag-mouse-text: #087f5b;
+    --warning: #fff3bf;
+    --warning-text: #795000;
+    --tip: #d3f9d8;
+    --tip-text: #1a5c2a;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --radius: 8px;
+    --transition: 0.2s ease;
+  }
+  [data-theme="dark"] {
+    --bg: #141517;
+    --bg2: #1a1b1e;
+    --bg3: #25262b;
+    --text: #c1c2c5;
+    --text2: #868e96;
+    --accent: #748ffc;
+    --accent2: #91a7ff;
+    --key-bg: #2c2e33;
+    --key-border: #373a40;
+    --key-text: #c1c2c5;
+    --table-head: #25262b;
+    --border: #2c2e33;
+    --tag-nav: #1864ab22;
+    --tag-nav-text: #74c0fc;
+    --tag-fn: #5c3aab22;
+    --tag-fn-text: #b197fc;
+    --tag-num: #795c0022;
+    --tag-num-text: #ffd43b;
+    --tag-sys: #7c1d1d22;
+    --tag-sys-text: #ff8787;
+    --tag-mouse: #0a4b3222;
+    --tag-mouse-text: #63e6be;
+    --warning: #795c0022;
+    --warning-text: #ffd43b;
+    --tip: #0a4b3222;
+    --tip-text: #63e6be;
+    --shadow: 0 1px 4px rgba(0,0,0,0.4);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    font-size: 15px;
+    transition: background var(--transition), color var(--transition);
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+  .header-left h1 { font-size: 18px; font-weight: 700; color: var(--accent); }
+  .header-left p  { font-size: 12px; color: var(--text2); margin-top: 2px; }
+
+  .theme-btn {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background var(--transition);
+  }
+  .theme-btn:hover { background: var(--border); }
+
+  /* ── Layout ── */
+  .container { max-width: 960px; margin: 0 auto; padding: 24px 20px; }
+
+  /* ── Nav tabs ── */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+    background: var(--bg2);
+    padding: 8px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .tab {
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    text-decoration: none;
+    transition: background var(--transition), color var(--transition);
+    border: none;
+    background: none;
+  }
+  .tab:hover { background: var(--bg3); color: var(--text); }
+  .tab.active { background: var(--accent); color: #fff; }
+
+  /* ── Sections ── */
+  .section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title .icon { font-size: 20px; }
+
+  h3 { font-size: 14px; font-weight: 600; margin: 20px 0 10px; color: var(--text); }
+  h3:first-child { margin-top: 0; }
+
+  p { margin-bottom: 12px; color: var(--text2); }
+
+  /* ── Key caps ── */
+  kbd {
+    display: inline-block;
+    background: var(--key-bg);
+    border: 1px solid var(--key-border);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-size: 12px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    color: var(--key-text);
+    white-space: nowrap;
+    line-height: 1.6;
+  }
+
+  .plus { color: var(--text2); margin: 0 3px; font-size: 12px; }
+  .arrow { color: var(--accent); margin: 0 5px; }
+
+  /* ── Layer badges ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 99px;
+    letter-spacing: 0.03em;
+  }
+  .badge-nav   { background: var(--tag-nav);   color: var(--tag-nav-text); }
+  .badge-fn    { background: var(--tag-fn);    color: var(--tag-fn-text); }
+  .badge-num   { background: var(--tag-num);   color: var(--tag-num-text); }
+  .badge-sys   { background: var(--tag-sys);   color: var(--tag-sys-text); }
+  .badge-mouse { background: var(--tag-mouse); color: var(--tag-mouse-text); }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: var(--table-head); text-align: left; padding: 8px 12px; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text2); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--bg3); }
+
+  /* ── Keyboard layout diagram ── */
+  .layout {
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 12px;
+    background: var(--bg3);
+    border-radius: 6px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+    line-height: 2;
+    color: var(--text);
+  }
+  .layout .row { display: flex; gap: 6px; margin-bottom: 4px; align-items: center; }
+  .layout .key {
+    min-width: 52px;
+    text-align: center;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-bottom: 2px solid var(--key-border);
+    border-radius: 4px;
+    padding: 6px 4px;
+    font-size: 11px;
+    line-height: 1.3;
+    color: var(--text);
+  }
+  .layout .key .main { font-weight: 700; font-size: 12px; }
+  .layout .key .mod  { font-size: 9px; color: var(--accent); display: block; margin-top: 1px; }
+  .layout .key.thumb { background: var(--accent); color: #fff; border-color: var(--accent2); }
+  .layout .key.thumb .mod { color: rgba(255,255,255,0.7); }
+  .layout .key.combo { background: var(--tag-nav); border-color: var(--tag-nav-text); }
+  .layout .gap { min-width: 20px; }
+  .layout .row-label { min-width: 60px; font-size: 10px; color: var(--text2); text-align: right; padding-right: 8px; }
+
+  /* ── Tip / Warning boxes ── */
+  .tip {
+    background: var(--tip);
+    color: var(--tip-text);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin: 12px 0;
+    border-left: 3px solid var(--tag-mouse-text);
+  }
+  .warning {
+    background: var(--warning);
+    color: var(--warning-text);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin: 12px 0;
+    border-left: 3px solid #e67700;
+  }
+
+  /* ── Shortcut rows ── */
+  .shortcut-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .shortcut-row:last-child { border-bottom: none; }
+  .shortcut-label { min-width: 160px; font-weight: 600; font-size: 13px; }
+  .shortcut-keys { flex: 1; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+  .shortcut-note { font-size: 12px; color: var(--text2); width: 100%; padding-left: 172px; margin-top: 2px; }
+
+  /* ── Steps ── */
+  .steps { list-style: none; counter-reset: steps; }
+  .steps li {
+    counter-increment: steps;
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+  }
+  .steps li:last-child { border-bottom: none; }
+  .steps li::before {
+    content: counter(steps);
+    min-width: 24px;
+    height: 24px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* ── Page sections (tab content) ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Print styles ── */
+  @media print {
+    header { position: static; }
+    .tabs { display: none; }
+    .page { display: block !important; }
+    .theme-btn { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    header { flex-direction: column; gap: 10px; align-items: flex-start; }
+    .layout .key { min-width: 38px; font-size: 10px; }
+    .shortcut-label { min-width: 120px; }
+    .shortcut-note { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>⌨ Corne Choc Pro BT — Keymap Reference</h1>
+    <p>Offline reference · urob ZMK v0.3 · Colemak-DH · 40 keys</p>
+  </div>
+  <button class="theme-btn" onclick="toggleTheme()">
+    <span id="theme-icon">🌙</span>
+    <span id="theme-label">Dark</span>
+  </button>
+</header>
+
+<div class="container">
+
+  <div class="tabs">
+    <button class="tab active" onclick="showPage('base', this)">Base Layout</button>
+    <button class="tab" onclick="showPage('layers', this)">Layers</button>
+    <button class="tab" onclick="showPage('combos', this)">Combos &amp; Morphs</button>
+    <button class="tab" onclick="showPage('shortcuts', this)">Shortcuts</button>
+    <button class="tab" onclick="showPage('ipad', this)">iPad</button>
+    <button class="tab" onclick="showPage('linux', this)">Linux</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ BASE LAYOUT -->
+  <div id="page-base" class="page active">
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🗺</span> Base Layer — Colemak-DH</div>
+      <div class="layout">
+        <div class="row">
+          <div class="key"><div class="main">Q</div></div>
+          <div class="key"><div class="main">W</div></div>
+          <div class="key"><div class="main">F</div></div>
+          <div class="key"><div class="main">P</div></div>
+          <div class="key"><div class="main">B</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">J</div></div>
+          <div class="key"><div class="main">L</div></div>
+          <div class="key"><div class="main">U</div></div>
+          <div class="key"><div class="main">Y</div></div>
+          <div class="key"><div class="main">'</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">A</div><span class="mod">GUI</span></div>
+          <div class="key"><div class="main">R</div><span class="mod">Alt</span></div>
+          <div class="key"><div class="main">S</div><span class="mod">Shift</span></div>
+          <div class="key"><div class="main">T</div><span class="mod">Ctrl</span></div>
+          <div class="key"><div class="main">G</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">M</div></div>
+          <div class="key"><div class="main">N</div><span class="mod">Ctrl</span></div>
+          <div class="key"><div class="main">E</div><span class="mod">Shift</span></div>
+          <div class="key"><div class="main">I</div><span class="mod">Alt</span></div>
+          <div class="key"><div class="main">O</div><span class="mod">GUI</span></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">Z</div></div>
+          <div class="key"><div class="main">X</div></div>
+          <div class="key"><div class="main">C</div></div>
+          <div class="key"><div class="main">D</div></div>
+          <div class="key"><div class="main">V</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">K</div></div>
+          <div class="key"><div class="main">H</div></div>
+          <div class="key"><div class="main">,</div><span class="mod">; / &lt;</span></div>
+          <div class="key"><div class="main">.</div><span class="mod">: / &gt;</span></div>
+          <div class="key"><div class="main">?</div><span class="mod">!</span></div>
+        </div>
+        <div class="row" style="margin-top:8px; padding-left:120px;">
+          <div class="key thumb"><div class="main">GUI</div><span class="mod">outer L</span></div>
+          <div class="key thumb"><div class="main">SPC</div><span class="mod">hold→NAV</span></div>
+          <div class="key thumb"><div class="main">ENT</div><span class="mod">hold→FN</span></div>
+          <div class="gap"></div>
+          <div class="key thumb"><div class="main">Num</div><span class="mod">smart</span></div>
+          <div class="key thumb"><div class="main">Shift</div><span class="mod">magic</span></div>
+          <div class="key thumb"><div class="main">🖱</div><span class="mod">mouse</span></div>
+        </div>
+        <div class="row" style="margin-top:4px; padding-left:60px;">
+          <div style="font-size:10px; color:var(--text2);">Inner column keys (display area): <kbd>Mute</kbd> · <kbd>Alt L</kbd> &nbsp;|&nbsp; <kbd>Alt R</kbd> · <kbd>Play/Pause</kbd></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🤙</span> Homerow Mods — Hold for Modifiers</div>
+      <p>Each home row key does two things: <strong>tap</strong> = letter, <strong>hold</strong> = modifier. Cross-hand only — hold a left-hand key while pressing a right-hand key (or vice versa). Same-hand presses always type letters.</p>
+      <table>
+        <tr><th>Key</th><th>Tap</th><th>Hold (modifier)</th><th>Side</th></tr>
+        <tr><td><kbd>A</kbd></td><td>a</td><td>GUI (Win / ⌘)</td><td>Left</td></tr>
+        <tr><td><kbd>R</kbd></td><td>r</td><td>Alt / Option</td><td>Left</td></tr>
+        <tr><td><kbd>S</kbd></td><td>s</td><td>Shift</td><td>Left</td></tr>
+        <tr><td><kbd>T</kbd></td><td>t</td><td>Ctrl</td><td>Left</td></tr>
+        <tr><td><kbd>N</kbd></td><td>n</td><td>Ctrl</td><td>Right</td></tr>
+        <tr><td><kbd>E</kbd></td><td>e</td><td>Shift</td><td>Right</td></tr>
+        <tr><td><kbd>I</kbd></td><td>i</td><td>Alt / Option</td><td>Right</td></tr>
+        <tr><td><kbd>O</kbd></td><td>o</td><td>GUI (Win / ⌘)</td><td>Right</td></tr>
+      </table>
+      <div class="tip">Hold time is 280ms. Type normally and they never misfire. If you need the same-hand modifier (e.g. Ctrl+T both left hand) use the sticky mods on NAV layer instead.</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">✨</span> Thumb Keys Explained</div>
+
+      <h3>Magic Shift (2nd thumb from right)</h3>
+      <table>
+        <tr><th>Action</th><th>Result</th></tr>
+        <tr><td>Tap after typing a letter</td><td>Repeat that letter (LL, SS, etc.)</td></tr>
+        <tr><td>Tap otherwise</td><td>Sticky Shift — next key is capitalised</td></tr>
+        <tr><td>Shift + tap</td><td>Caps Word — capitalises whole word until space</td></tr>
+        <tr><td>Hold</td><td>Shift held down</td></tr>
+      </table>
+
+      <h3>Smart Num (3rd thumb from right)</h3>
+      <table>
+        <tr><th>Action</th><th>Result</th></tr>
+        <tr><td>Tap</td><td>Num-word — NUM layer activates, auto-exits after non-number</td></tr>
+        <tr><td>Double-tap (within 200ms)</td><td>Sticky NUM layer — stays until you press a non-NUM key</td></tr>
+        <tr><td>Hold</td><td>NUM layer held while held</td></tr>
+      </table>
+      <div class="warning">Double-tap timing is tight (200ms). If it's not working, tap faster — both taps need to land within that window.</div>
+
+      <h3>smart_mouse (rightmost thumb)</h3>
+      <p>Tap to toggle Mouse layer on/off. Layer auto-exits when you stop using mouse keys.</p>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ LAYERS -->
+  <div id="page-layers" class="page">
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🧭</span> <span class="badge badge-nav">NAV</span> &nbsp;Navigation — Hold Space</div>
+      <div class="layout">
+        <div class="row">
+          <div class="key combo"><div class="main">Alt+F4</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">⇧Tab</div></div>
+          <div class="key combo"><div class="main">Swap</div><span class="mod">Alt+Tab</span></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">PgUp</div></div>
+          <div class="key combo"><div class="main">Bksp</div><span class="mod">⌃Del Word</span></div>
+          <div class="key combo"><div class="main">↑</div><span class="mod">⌃Home</span></div>
+          <div class="key combo"><div class="main">Del</div><span class="mod">⌃Del Fwd</span></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">sk GUI</div></div>
+          <div class="key"><div class="main">sk Alt</div></div>
+          <div class="key"><div class="main">sk Sft</div></div>
+          <div class="key"><div class="main">sk Ctl</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">PgDn</div></div>
+          <div class="key combo"><div class="main">←</div><span class="mod">Home</span></div>
+          <div class="key combo"><div class="main">↓</div><span class="mod">⌃End</span></div>
+          <div class="key combo"><div class="main">→</div><span class="mod">End</span></div>
+          <div class="key"><div class="main">Enter</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">Ins</div></div>
+          <div class="key"><div class="main">Tab</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+      </div>
+      <div class="tip"><strong>sk</strong> = sticky key — tap it, release Space, the modifier stays for your next keypress. Stack multiple sticky mods for combos like Ctrl+Alt.</div>
+      <table>
+        <tr><th>Key</th><th>Tap</th><th>Long-hold</th></tr>
+        <tr><td><kbd>←</kbd></td><td>Left arrow</td><td>Home (start of line)</td></tr>
+        <tr><td><kbd>→</kbd></td><td>Right arrow</td><td>End (end of line)</td></tr>
+        <tr><td><kbd>↑</kbd></td><td>Up arrow</td><td>Ctrl+Home (top of doc)</td></tr>
+        <tr><td><kbd>↓</kbd></td><td>Down arrow</td><td>Ctrl+End (bottom of doc)</td></tr>
+        <tr><td><kbd>Bksp</kbd></td><td>Backspace</td><td>Delete whole word back</td></tr>
+        <tr><td><kbd>Del</kbd></td><td>Delete</td><td>Delete whole word forward</td></tr>
+        <tr><td><kbd>Swap</kbd> (W)</td><td colspan="2">Hold = Alt+Tab switcher. Tap W to cycle, release to land.</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🎛</span> <span class="badge badge-fn">FN</span> &nbsp;Function &amp; Media — Hold Enter</div>
+      <div class="layout">
+        <div class="row">
+          <div class="key"><div class="main">F12</div></div>
+          <div class="key"><div class="main">F7</div></div>
+          <div class="key"><div class="main">F8</div></div>
+          <div class="key"><div class="main">F9</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">⏮</div></div>
+          <div class="key"><div class="main">Vol+</div></div>
+          <div class="key"><div class="main">⏭</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">F11</div><span class="mod">GUI</span></div>
+          <div class="key"><div class="main">F4</div><span class="mod">Alt</span></div>
+          <div class="key"><div class="main">F5</div><span class="mod">Shift</span></div>
+          <div class="key"><div class="main">F6</div><span class="mod">Ctrl</span></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">⬅Dsk</div></div>
+          <div class="key"><div class="main">Vol-</div></div>
+          <div class="key"><div class="main">Dsk➡</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">F10</div></div>
+          <div class="key"><div class="main">F1</div></div>
+          <div class="key"><div class="main">F2</div></div>
+          <div class="key"><div class="main">F3</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">PinApp</div></div>
+          <div class="key"><div class="main">PinWin</div></div>
+          <div class="key"><div class="main">DskMgr</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+      </div>
+      <div class="tip">F11/F4/F5/F6 on the home row also have homerow mods (hold for GUI/Alt/Shift/Ctrl).</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🔢</span> <span class="badge badge-num">NUM</span> &nbsp;Numbers — Smart Num thumb</div>
+      <div class="layout">
+        <div class="row">
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">7</div></div>
+          <div class="key"><div class="main">8</div></div>
+          <div class="key"><div class="main">9</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">0</div><span class="mod">GUI</span></div>
+          <div class="key"><div class="main">4</div><span class="mod">Alt</span></div>
+          <div class="key"><div class="main">5</div><span class="mod">Shift</span></div>
+          <div class="key"><div class="main">6</div><span class="mod">Ctrl</span></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+        <div class="row">
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">1</div></div>
+          <div class="key"><div class="main">2</div></div>
+          <div class="key"><div class="main">3</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="gap"></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+          <div class="key"><div class="main">—</div></div>
+        </div>
+      </div>
+      <p>Numpad layout on left hand. 0 and 4/5/6 on home row have homerow mods too.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">⚙️</span> <span class="badge badge-sys">SYS</span> &nbsp;System — Hold FN + NUM together</div>
+      <p>Activates automatically when both FN and NUM layers are active simultaneously. Left = Bluetooth. Right = RGB underglow.</p>
+      <table>
+        <tr><th>Key position</th><th>Action</th></tr>
+        <tr><td>Top row L: <kbd>Q</kbd><kbd>W</kbd><kbd>F</kbd><kbd>P</kbd></td><td>BT0 / BT1 / BT2 / BT3 — switch paired device</td></tr>
+        <tr><td><kbd>B</kbd> (top row L)</td><td>BT Clear — forget current device pairing</td></tr>
+        <tr><td><kbd>A</kbd></td><td>RGB Toggle on/off</td></tr>
+        <tr><td><kbd>Z</kbd></td><td>RGB Effect cycle</td></tr>
+        <tr><td><kbd>V</kbd> / <kbd>J</kbd></td><td>Bootloader mode (for flashing firmware)</td></tr>
+        <tr><td><kbd>B</kbd> / <kbd>M</kbd></td><td>System reset</td></tr>
+        <tr><td>Right top row</td><td>RGB: Brightness ↑↓ · Hue ↑↓ · Saturation ↑↓ · Speed ↑↓</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🖱</span> <span class="badge badge-mouse">MOUSE</span> &nbsp;Mouse — Tap rightmost thumb</div>
+      <table>
+        <tr><th>Key</th><th>Action</th></tr>
+        <tr><td>Right hand: <kbd>U</kbd><kbd>I</kbd><kbd>Y</kbd></td><td>Mouse move ↑ / ← / → / ↓ (around that cluster)</td></tr>
+        <tr><td><kbd>L</kbd></td><td>Page Up</td></tr>
+        <tr><td><kbd>.</kbd></td><td>Page Down</td></tr>
+        <tr><td>Left home row: <kbd>R</kbd><kbd>S</kbd><kbd>T</kbd></td><td>Left click / Middle click / Right click</td></tr>
+        <tr><td>Right home row: <kbd>N</kbd><kbd>E</kbd></td><td>Left click / Middle click</td></tr>
+        <tr><td><kbd>M</kbd></td><td>Scroll left</td></tr>
+        <tr><td><kbd>O</kbd></td><td>Scroll right</td></tr>
+        <tr><td>Thumb <kbd>Smart Num</kbd></td><td>Scroll up</td></tr>
+        <tr><td>Thumb <kbd>Magic Shift</kbd></td><td>Scroll down</td></tr>
+      </table>
+      <div class="tip">Tap rightmost thumb again to exit Mouse layer, or press any non-mouse key.</div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ COMBOS -->
+  <div id="page-combos" class="page">
+
+    <div class="section">
+      <div class="section-title"><span class="icon">⚡</span> Combos — Press Two Keys Simultaneously</div>
+
+      <h3>Cut / Copy / Paste (bottom left row: Z X C D V)</h3>
+      <table>
+        <tr><th>Press together</th><th>Keys</th><th>Result</th></tr>
+        <tr><td><kbd>X</kbd> + <kbd>C</kbd></td><td>LB3 + LB2</td><td>Copy (Ctrl+Insert)</td></tr>
+        <tr><td><kbd>X</kbd> + <kbd>D</kbd></td><td>LB3 + LB1</td><td>Tap=Copy · Double-tap=Cut</td></tr>
+        <tr><td><kbd>C</kbd> + <kbd>D</kbd></td><td>LB2 + LB1</td><td>Paste (Shift+Insert)</td></tr>
+      </table>
+      <div class="tip">These use Ctrl+Insert / Shift+Insert — identical to Ctrl+C/V on Windows. Some terminals use their own shortcuts (see Linux tab).</div>
+
+      <h3>Left Hand — Horizontal</h3>
+      <table>
+        <tr><th>Press together</th><th>Result</th></tr>
+        <tr><td><kbd>F</kbd> + <kbd>P</kbd></td><td>Escape</td></tr>
+        <tr><td><kbd>W</kbd> + <kbd>F</kbd></td><td>Mouse layer</td></tr>
+        <tr><td><kbd>R</kbd> + <kbd>S</kbd></td><td>Tab</td></tr>
+        <tr><td><kbd>S</kbd> + <kbd>T</kbd></td><td>Leader key</td></tr>
+        <tr><td><kbd>R</kbd> + <kbd>S</kbd> + <kbd>T</kbd></td><td>Leader key + Shift</td></tr>
+      </table>
+
+      <h3>Right Hand — Horizontal</h3>
+      <table>
+        <tr><th>Press together</th><th>Result</th></tr>
+        <tr><td><kbd>L</kbd> + <kbd>U</kbd></td><td>Backspace</td></tr>
+        <tr><td><kbd>U</kbd> + <kbd>Y</kbd></td><td>Delete</td></tr>
+      </table>
+
+      <h3>Brackets (right home row horizontal)</h3>
+      <table>
+        <tr><th>Press together</th><th>Layer</th><th>Result</th></tr>
+        <tr><td><kbd>N</kbd> + <kbd>E</kbd></td><td>DEF / NUM</td><td><kbd>(</kbd> <kbd>)</kbd></td></tr>
+        <tr><td><kbd>E</kbd> + <kbd>I</kbd></td><td>DEF / NUM</td><td><kbd>[</kbd> <kbd>]</kbd></td></tr>
+        <tr><td><kbd>N</kbd> + <kbd>I</kbd></td><td>DEF / NUM</td><td><kbd>{</kbd> <kbd>}</kbd></td></tr>
+        <tr><td><kbd>N</kbd> + <kbd>E</kbd></td><td>NAV</td><td><kbd>&lt;</kbd> <kbd>&gt;</kbd></td></tr>
+      </table>
+
+      <h3>Vertical Combos — Symbols (top + home row, same column)</h3>
+      <table>
+        <tr><th>Column</th><th>Left hand (top+mid)</th><th>Right hand (top+mid)</th></tr>
+        <tr><td>Index-far</td><td><kbd>Q</kbd>+<kbd>A</kbd> = @</td><td><kbd>J</kbd>+<kbd>M</kbd> = ^</td></tr>
+        <tr><td>Index</td><td><kbd>W</kbd>+<kbd>R</kbd> = #</td><td><kbd>L</kbd>+<kbd>N</kbd> = +</td></tr>
+        <tr><td>Middle</td><td><kbd>F</kbd>+<kbd>S</kbd> = $</td><td><kbd>U</kbd>+<kbd>E</kbd> = *</td></tr>
+        <tr><td>Ring</td><td><kbd>P</kbd>+<kbd>T</kbd> = %</td><td><kbd>Y</kbd>+<kbd>I</kbd> = &amp;</td></tr>
+        <tr><td>Pinky</td><td><kbd>B</kbd>+<kbd>G</kbd> = `</td><td><kbd>'</kbd>+<kbd>O</kbd> = _</td></tr>
+      </table>
+
+      <h3>Vertical Combos — More Symbols (home + bottom row, same column)</h3>
+      <table>
+        <tr><th>Left hand (mid+bot)</th><th>Right hand (mid+bot)</th></tr>
+        <tr><td><kbd>A</kbd>+<kbd>Z</kbd> = \</td><td><kbd>M</kbd>+<kbd>K</kbd> = /</td></tr>
+        <tr><td><kbd>R</kbd>+<kbd>X</kbd> = =</td><td><kbd>N</kbd>+<kbd>H</kbd> = -</td></tr>
+        <tr><td><kbd>S</kbd>+<kbd>C</kbd> = ~</td><td><kbd>E</kbd>+<kbd>,</kbd> = |</td></tr>
+        <tr><td><kbd>T</kbd>+<kbd>D</kbd> = -</td><td></td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🔀</span> Punctuation Morphs</div>
+      <table>
+        <tr><th>Key</th><th>Normal</th><th>+ Shift</th><th>+ Ctrl+Shift</th></tr>
+        <tr><td><kbd>,</kbd></td><td>,</td><td>;</td><td>&lt;</td></tr>
+        <tr><td><kbd>.</kbd></td><td>.</td><td>:</td><td>&gt;</td></tr>
+        <tr><td><kbd>?</kbd> key</td><td>?</td><td>!</td><td>—</td></tr>
+        <tr><td><kbd>(</kbd> key</td><td>(</td><td>&lt;</td><td>—</td></tr>
+        <tr><td><kbd>)</kbd> key</td><td>)</td><td>&gt;</td><td>—</td></tr>
+      </table>
+
+      <h3>Space Morph</h3>
+      <p><strong>Shift + Space</strong> → types <code>. </code> then sticky Shift (auto-capitalises next word — sentence-end shortcut).</p>
+
+      <h3>Backspace Morph</h3>
+      <p><strong>Left Shift + Backspace</strong> → Delete &nbsp;|&nbsp; <strong>Right Shift + Backspace</strong> → Shift+Delete</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">👑</span> Leader Key Sequences</div>
+      <p>Activate with <kbd>S</kbd>+<kbd>T</kbd> combo, then type the sequence. For shifted output use <kbd>R</kbd>+<kbd>S</kbd>+<kbd>T</kbd>.</p>
+
+      <h3>Special Characters</h3>
+      <table>
+        <tr><th>Type after Leader</th><th>Output</th></tr>
+        <tr><td><kbd>A</kbd></td><td>ä</td></tr>
+        <tr><td><kbd>O</kbd></td><td>ö</td></tr>
+        <tr><td><kbd>U</kbd></td><td>ü</td></tr>
+        <tr><td><kbd>S</kbd></td><td>ß</td></tr>
+      </table>
+
+      <h3>Greek Letters (prefix with E)</h3>
+      <table>
+        <tr><th>Sequence</th><th>Output</th><th>Sequence</th><th>Output</th></tr>
+        <tr><td>E A</td><td>α alpha</td><td>E N</td><td>ν nu</td></tr>
+        <tr><td>E B</td><td>β beta</td><td>E X</td><td>ξ xi</td></tr>
+        <tr><td>E G</td><td>γ gamma</td><td>E O</td><td>ο omicron</td></tr>
+        <tr><td>E D</td><td>δ delta</td><td>E P</td><td>π pi</td></tr>
+        <tr><td>E E</td><td>ε epsilon</td><td>E R</td><td>ρ rho</td></tr>
+        <tr><td>E Z</td><td>ζ zeta</td><td>E S</td><td>σ sigma</td></tr>
+        <tr><td>E H</td><td>η eta</td><td>E T</td><td>τ tau</td></tr>
+        <tr><td>E Q</td><td>θ theta</td><td>E U</td><td>υ upsilon</td></tr>
+        <tr><td>E I</td><td>ι iota</td><td>E F</td><td>φ phi</td></tr>
+        <tr><td>E K</td><td>κ kappa</td><td>E C</td><td>χ chi</td></tr>
+        <tr><td>E L</td><td>λ lambda</td><td>E W</td><td>ω omega</td></tr>
+        <tr><td>E M</td><td>μ mu</td><td></td><td></td></tr>
+      </table>
+
+      <h3>System Commands</h3>
+      <table>
+        <tr><th>Sequence</th><th>Action</th></tr>
+        <tr><td>U S B</td><td>Switch to USB output</td></tr>
+        <tr><td>B L E</td><td>Switch to Bluetooth output</td></tr>
+        <tr><td>R E S E T</td><td>System reset</td></tr>
+        <tr><td>B O O T</td><td>Bootloader mode</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ SHORTCUTS -->
+  <div id="page-shortcuts" class="page">
+
+    <div class="section">
+      <div class="section-title"><span class="icon">⚡</span> Common Shortcuts — Quick Reference</div>
+      <div class="tip">Two methods for modifiers: <strong>Homerow mods</strong> (hold home row key, press opposite hand) or <strong>Sticky mods</strong> on NAV (hold Space, tap A/R/S/T, release Space, press next key).</div>
+
+      <div class="shortcut-row">
+        <div class="shortcut-label">Alt+Tab</div>
+        <div class="shortcut-keys"><kbd>Space</kbd><span class="plus">+</span><kbd>W</kbd></div>
+        <div class="shortcut-note">Swapper activates Alt+Tab. Keep holding Space+W and tap W to cycle windows. Release to land.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Alt+F4</div>
+        <div class="shortcut-keys"><kbd>Space</kbd><span class="plus">+</span><kbd>Q</kbd></div>
+        <div class="shortcut-note">Built into NAV layer top-left.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Win+R (Run)</div>
+        <div class="shortcut-keys"><kbd>Space</kbd><span class="arrow">→</span><kbd>A</kbd><span class="plus">(sticky GUI)</span><span class="arrow">→</span>release Space<span class="arrow">→</span><kbd>R</kbd></div>
+        <div class="shortcut-note">Tap sticky GUI from NAV, then type R after releasing.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Ctrl+Alt+Del</div>
+        <div class="shortcut-keys">Hold <kbd>Space</kbd><span class="arrow">→</span>tap <kbd>R</kbd> (sk Alt)<span class="arrow">→</span>tap <kbd>T</kbd> (sk Ctrl)<span class="arrow">→</span>tap <kbd>Y</kbd> (Del)</div>
+        <div class="shortcut-note">All while holding Space. R+T stack sticky mods, Y sends Delete on NAV layer.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Copy</div>
+        <div class="shortcut-keys"><kbd>X</kbd><span class="plus">+</span><kbd>C</kbd> combo</div>
+        <div class="shortcut-note">Or: Hold <kbd>N</kbd> (right Ctrl) → tap <kbd>C</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Cut</div>
+        <div class="shortcut-keys"><kbd>X</kbd><span class="plus">+</span><kbd>D</kbd> combo</div>
+        <div class="shortcut-note">Or: Hold <kbd>N</kbd> (right Ctrl) → tap <kbd>X</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Paste</div>
+        <div class="shortcut-keys"><kbd>C</kbd><span class="plus">+</span><kbd>D</kbd> combo</div>
+        <div class="shortcut-note">Or: Hold <kbd>N</kbd> (right Ctrl) → tap <kbd>V</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Ctrl+Z (Undo)</div>
+        <div class="shortcut-keys">Hold <kbd>N</kbd><span class="arrow">→</span>tap <kbd>Z</kbd></div>
+        <div class="shortcut-note">N=right Ctrl, Z=left hand. Cross-hand mod works.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Ctrl+S (Save)</div>
+        <div class="shortcut-keys">Hold <kbd>N</kbd><span class="arrow">→</span>tap <kbd>S</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Ctrl+A (Select All)</div>
+        <div class="shortcut-keys">Hold <kbd>N</kbd><span class="arrow">→</span>tap <kbd>A</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Ctrl+W (close tab)</div>
+        <div class="shortcut-keys">Hold <kbd>N</kbd><span class="arrow">→</span>tap <kbd>W</kbd></div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Ctrl+T (new tab)</div>
+        <div class="shortcut-keys">Hold <kbd>N</kbd><span class="arrow">→</span>tap <kbd>T</kbd>? No — T is left hand. Use: <kbd>Space</kbd><span class="arrow">→</span><kbd>T</kbd> (sk Ctrl) → release → <kbd>T</kbd></div>
+        <div class="shortcut-note">Ctrl and T are both left hand so cross-hand rule doesn't apply. Use sticky Ctrl from NAV.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Select word</div>
+        <div class="shortcut-keys">Hold <kbd>E</kbd> (right Shift) + Hold <kbd>N</kbd> (right Ctrl)<span class="arrow">→</span>tap <kbd>←</kbd> or <kbd>→</kbd> on NAV</div>
+        <div class="shortcut-note">Ctrl+Shift+Arrow selects by word. Both mods right-hand, arrows on NAV (hold Space too).</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Caps Word</div>
+        <div class="shortcut-keys">Shift<span class="plus">+</span>tap <kbd>Magic</kbd> (right thumb 2)</div>
+        <div class="shortcut-note">Capitalises entire word as you type. Exits on space or punctuation.</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Escape</div>
+        <div class="shortcut-keys"><kbd>F</kbd><span class="plus">+</span><kbd>P</kbd> combo</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Tab</div>
+        <div class="shortcut-keys"><kbd>R</kbd><span class="plus">+</span><kbd>S</kbd> combo &nbsp;or&nbsp; <kbd>Space</kbd><span class="plus">+</span><kbd>I</kbd> (NAV layer)</div>
+      </div>
+      <div class="shortcut-row">
+        <div class="shortcut-label">Shift+Tab</div>
+        <div class="shortcut-keys"><kbd>Space</kbd><span class="plus">+</span><kbd>F</kbd></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title"><span class="icon">📋</span> Same-Hand Problem — When Ctrl and Target Are Both Left</div>
+      <p>Homerow mods require opposite hands. If the modifier key and the letter you want are on the <em>same</em> hand, use sticky mods from NAV instead:</p>
+      <ol class="steps">
+        <li>Hold <kbd>Space</kbd> to enter NAV layer</li>
+        <li>Tap the sticky mod (A=GUI · R=Alt · S=Shift · T=Ctrl) — you can stack multiples</li>
+        <li>Release Space</li>
+        <li>Press your target key</li>
+      </ol>
+      <div class="tip">Example: Ctrl+F (find) — both Ctrl (T) and F are left hand. Solution: Space → tap T (sticky Ctrl) → release Space → tap F.</div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ IPAD -->
+  <div id="page-ipad" class="page">
+
+    <div class="section">
+      <div class="section-title"><span class="icon">📱</span> Using with iPad</div>
+      <p>The Corne connects to iPad over Bluetooth LE. iPadOS treats it as a standard hardware keyboard. Most things work exactly as on a PC once you know the key mapping.</p>
+
+      <h3>Pairing</h3>
+      <ol class="steps">
+        <li>Put the keyboard into Bluetooth pairing mode — hold FN+NUM (both layers) to enter SYS, then tap BT0–BT3 to select a profile slot. If it's a fresh slot it will start advertising.</li>
+        <li>On iPad: <strong>Settings → Bluetooth</strong> → wait for "Corne Choc Pro BT" to appear under Other Devices.</li>
+        <li>Tap it to pair. It may ask for a PIN — type it on the keyboard and press Enter.</li>
+        <li>To switch between devices (e.g. PC and iPad) use SYS layer: FN+NUM, then tap BT0/BT1 etc.</li>
+      </ol>
+      <div class="warning">Each half of the split keyboard connects independently. Make sure both halves are connected — check Settings → Bluetooth for both entries.</div>
+
+      <h3>Key Mapping on iPad</h3>
+      <table>
+        <tr><th>ZMK key</th><th>iPadOS function</th></tr>
+        <tr><td>GUI (A / O homerow)</td><td>⌘ Command</td></tr>
+        <tr><td>Alt (R / I homerow)</td><td>⌥ Option</td></tr>
+        <tr><td>Ctrl (T / N homerow)</td><td>⌃ Control</td></tr>
+        <tr><td>Shift (S / E homerow)</td><td>⇧ Shift</td></tr>
+      </table>
+
+      <h3>iPad Shortcuts Using This Keyboard</h3>
+      <table>
+        <tr><th>Want</th><th>Keys</th><th>How</th></tr>
+        <tr><td>Home screen</td><td>⌘ H</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>H</kbd> (right hand)</td></tr>
+        <tr><td>App switcher</td><td>⌘ Tab</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>R</kbd>+<kbd>S</kbd> combo (Tab)</td></tr>
+        <tr><td>Spotlight search</td><td>⌘ Space</td><td>Hold <kbd>A</kbd> (GUI) → tap Space thumb</td></tr>
+        <tr><td>Screenshot</td><td>⌘ ⇧ 3</td><td>Hold <kbd>A</kbd> (GUI) + hold <kbd>E</kbd> (Shift) → tap <kbd>3</kbd> on NUM</td></tr>
+        <tr><td>Copy</td><td>⌘ C</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>C</kbd></td></tr>
+        <tr><td>Paste</td><td>⌘ V</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>V</kbd></td></tr>
+        <tr><td>Cut</td><td>⌘ X</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>X</kbd></td></tr>
+        <tr><td>Undo</td><td>⌘ Z</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>Z</kbd></td></tr>
+        <tr><td>Select all</td><td>⌘ A</td><td>Hold <kbd>O</kbd> (right GUI) → tap <kbd>A</kbd>… tricky same-hand. Use: Space→<kbd>A</kbd>(sk GUI)→release→<kbd>A</kbd></td></tr>
+        <tr><td>Bold (in docs)</td><td>⌘ B</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>B</kbd></td></tr>
+        <tr><td>Split view / multitasking</td><td>⌘ .</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>.</kbd></td></tr>
+        <tr><td>Show keyboard shortcut list</td><td>Hold ⌘</td><td>Hold <kbd>A</kbd> for a moment in any app</td></tr>
+        <tr><td>Switch app</td><td>⌘ Tab</td><td>Hold <kbd>A</kbd> (GUI) + <kbd>R</kbd>+<kbd>S</kbd> (Tab combo)</td></tr>
+        <tr><td>Lock screen</td><td>⌘ L</td><td>Hold <kbd>A</kbd> (GUI) → tap <kbd>L</kbd></td></tr>
+      </table>
+
+      <h3>Alt+Tab on iPad</h3>
+      <p>The ZMK swapper (<kbd>Space</kbd>+<kbd>W</kbd>) holds Alt and sends Tab. On iPad this sends ⌥+Tab which is not the standard app switcher (that's ⌘+Tab). For app switching on iPad use <kbd>A</kbd> (GUI) held + <kbd>R</kbd>+<kbd>S</kbd> Tab combo instead.</p>
+
+      <h3>Notes</h3>
+      <div class="tip">iPadOS shows a keyboard shortcut overlay in most apps when you hold ⌘ — hold your <kbd>A</kbd> homerow mod for a second to see what's available in the current app.</div>
+      <div class="warning">The combos (X+C for copy, C+D for paste) use Ctrl+Insert / Shift+Insert which are PC shortcuts — they do NOT work on iPad. Use ⌘+C / ⌘+V via the GUI homerow mod instead.</div>
+    </div>
+
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ LINUX -->
+  <div id="page-linux" class="page">
+
+    <div class="section">
+      <div class="section-title"><span class="icon">🐧</span> Using with Linux</div>
+      <p>ZMK sends standard HID codes that Linux understands natively. Pairing over Bluetooth, and most shortcuts work the same as on Windows with one main difference: GUI = Super key.</p>
+
+      <h3>Bluetooth Pairing (command line)</h3>
+      <ol class="steps">
+        <li>Open a terminal and run: <code>bluetoothctl</code></li>
+        <li>Type: <code>power on</code></li>
+        <li>Type: <code>scan on</code></li>
+        <li>Put keyboard into pairing mode (SYS layer → BT slot)</li>
+        <li>When "Corne Choc Pro BT" appears, type: <code>pair XX:XX:XX:XX:XX:XX</code> (use the MAC shown)</li>
+        <li>Type: <code>connect XX:XX:XX:XX:XX:XX</code></li>
+        <li>Type: <code>trust XX:XX:XX:XX:XX:XX</code> (auto-reconnects on boot)</li>
+        <li>Type: <code>scan off</code> then <code>exit</code></li>
+      </ol>
+      <div class="tip">GNOME users: Settings → Bluetooth is easier. KDE users: System Settings → Bluetooth. Both work fine.</div>
+
+      <h3>Key Mapping on Linux</h3>
+      <table>
+        <tr><th>ZMK key</th><th>Linux function</th></tr>
+        <tr><td>GUI (A / O homerow)</td><td>Super / Meta key (opens app launcher)</td></tr>
+        <tr><td>Alt (R / I homerow)</td><td>Alt</td></tr>
+        <tr><td>Ctrl (T / N homerow)</td><td>Ctrl</td></tr>
+        <tr><td>Shift (S / E homerow)</td><td>Shift</td></tr>
+      </table>
+
+      <h3>Common Linux Shortcuts</h3>
+      <table>
+        <tr><th>Want</th><th>Keys</th><th>How on this keyboard</th></tr>
+        <tr><td>Open terminal</td><td>Ctrl+Alt+T</td><td>Hold <kbd>Space</kbd>→ tap <kbd>R</kbd>(sk Alt) → tap <kbd>T</kbd>(sk Ctrl) → release → tap <kbd>T</kbd></td></tr>
+        <tr><td>App launcher (GNOME)</td><td>Super</td><td>Tap <kbd>A</kbd> homerow quickly (or tap outer thumb <kbd>GUI</kbd>)</td></tr>
+        <tr><td>App launcher (KDE)</td><td>Super</td><td>Same as above</td></tr>
+        <tr><td>Alt+F4 (close window)</td><td>Alt+F4</td><td><kbd>Space</kbd>+<kbd>Q</kbd> — built in to NAV layer</td></tr>
+        <tr><td>Show all windows (GNOME)</td><td>Super+W</td><td>Hold <kbd>A</kbd>(GUI) → tap <kbd>W</kbd></td></tr>
+        <tr><td>Switch workspace left</td><td>Super+←</td><td>Hold <kbd>A</kbd>(GUI) → hold Space, tap NAV ←</td></tr>
+        <tr><td>Move window to workspace</td><td>Super+Shift+←/→</td><td>Stack: hold <kbd>A</kbd>(GUI) + hold <kbd>E</kbd>(Shift) → NAV arrows</td></tr>
+        <tr><td>Screenshot (GNOME)</td><td>Print Screen / Shift+Super+S</td><td>Hold <kbd>A</kbd>(GUI) + <kbd>E</kbd>(Shift) → tap <kbd>S</kbd></td></tr>
+        <tr><td>Lock screen</td><td>Super+L</td><td>Hold <kbd>A</kbd>(GUI) → tap <kbd>L</kbd></td></tr>
+        <tr><td>Switch TTY (no GUI)</td><td>Ctrl+Alt+F2</td><td>Space→R(sk Alt)→T(sk Ctrl)→release→FN layer F2</td></tr>
+      </table>
+
+      <h3>Terminal Copy/Paste — Important Difference</h3>
+      <div class="warning">In Linux terminals (bash, zsh, etc.), <strong>Ctrl+C kills the running process</strong> — it does not copy. Copy/paste in terminals uses Ctrl+<strong>Shift</strong>+C and Ctrl+<strong>Shift</strong>+V.</div>
+      <table>
+        <tr><th>Want</th><th>Keys</th><th>How</th></tr>
+        <tr><td>Copy in terminal</td><td>Ctrl+Shift+C</td><td>Hold <kbd>N</kbd>(right Ctrl) + hold <kbd>E</kbd>(right Shift) → tap <kbd>C</kbd> (left hand)</td></tr>
+        <tr><td>Paste in terminal</td><td>Ctrl+Shift+V</td><td>Hold <kbd>N</kbd>(right Ctrl) + hold <kbd>E</kbd>(right Shift) → tap <kbd>V</kbd> (left hand)</td></tr>
+        <tr><td>Kill process</td><td>Ctrl+C</td><td>Hold <kbd>N</kbd>(right Ctrl) → tap <kbd>C</kbd></td></tr>
+        <tr><td>Copy in GUI apps</td><td>Ctrl+C</td><td>Hold <kbd>N</kbd>(right Ctrl) → tap <kbd>C</kbd> &nbsp;or use <kbd>X</kbd>+<kbd>C</kbd> combo</td></tr>
+        <tr><td>Paste in GUI apps</td><td>Ctrl+V</td><td>Hold <kbd>N</kbd>(right Ctrl) → tap <kbd>V</kbd> &nbsp;or use <kbd>C</kbd>+<kbd>D</kbd> combo</td></tr>
+      </table>
+
+      <h3>Ctrl+Alt+Delete on Linux</h3>
+      <p>On most Linux desktop environments Ctrl+Alt+Delete shows a logout/power dialog (like Windows). Use the same method:</p>
+      <div class="shortcut-row">
+        <div class="shortcut-keys">Hold <kbd>Space</kbd><span class="arrow">→</span>tap <kbd>R</kbd>(sk Alt)<span class="arrow">→</span>tap <kbd>T</kbd>(sk Ctrl)<span class="arrow">→</span>tap <kbd>Y</kbd>(Del on NAV)</div>
+      </div>
+      <p>In TTY (no GUI) Ctrl+Alt+Del may reboot the machine — use with care.</p>
+
+      <h3>Vim / Neovim Tips</h3>
+      <table>
+        <tr><th>Vim key</th><th>How to hit it</th></tr>
+        <tr><td>Escape (normal mode)</td><td><kbd>F</kbd>+<kbd>P</kbd> combo</td></tr>
+        <tr><td>Ctrl+[ (alt escape)</td><td>Hold <kbd>N</kbd>(Ctrl) → tap <kbd>W</kbd> nope — use F+P combo</td></tr>
+        <tr><td>:w (save)</td><td>F+P(Esc) then type :w or just Ctrl+S if configured</td></tr>
+        <tr><td>gg / G</td><td>NAV ↑ long-hold = top of doc, ↓ long-hold = bottom</td></tr>
+        <tr><td>Word nav (w/b)</td><td>NAV Bksp long-hold (delete word) is different — use w/b normally</td></tr>
+      </table>
+
+      <h3>Auto-reconnect on Boot</h3>
+      <p>If you ran <code>trust</code> in bluetoothctl, the keyboard reconnects automatically when Linux boots and Bluetooth is on. If it doesn't reconnect, run <code>bluetoothctl connect XX:XX:XX:XX:XX:XX</code> from a wired keyboard or use the GUI Bluetooth settings.</p>
+
+      <div class="tip">To see paired devices: <code>bluetoothctl paired-devices</code> — this shows your keyboard's MAC address so you don't have to look it up again.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Theme
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? '' : 'dark');
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    document.getElementById('theme-label').textContent = isDark ? 'Dark' : 'Light';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+
+  // Restore theme
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.getElementById('theme-icon').textContent = '☀️';
+    document.getElementById('theme-label').textContent = 'Light';
+  }
+
+  // Tab navigation
+  function showPage(name, btn) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
